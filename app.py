@@ -1,5 +1,4 @@
 from flask import Flask
-
 from database.db import initialize_database
 
 from controllers.target_controller import (
@@ -13,6 +12,10 @@ from controllers.scan_controller import (
 
 from controllers.vulnerability_controller import (
     vulnerability_page
+)
+
+from controllers.ai_controller import (
+    ai_analysis_page
 )
 
 app = Flask(__name__)
@@ -67,6 +70,13 @@ def home():
 
                 </a>
 
+                <a href="/ai-analysis"
+                   class="list-group-item list-group-item-action">
+
+                    AI Security Analysis
+
+                </a>
+
             </div>
 
         </div>
@@ -107,6 +117,12 @@ def scans():
 def vulnerabilities():
 
     return vulnerability_page()
+
+
+@app.route("/ai-analysis")
+def ai_analysis():
+
+    return ai_analysis_page()
 
 
 if __name__ == "__main__":
