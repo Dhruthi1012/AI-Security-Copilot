@@ -10,7 +10,7 @@ class NmapService:
 
         scanner.scan(
             hosts=target,
-            arguments="-sV"
+            arguments="-sV -Pn"
         )
 
         results = []

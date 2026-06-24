@@ -5,7 +5,7 @@ class AIService:
 
     OLLAMA_URL = "http://localhost:11434/api/generate"
 
-    MODEL_NAME = "llama3"
+    MODEL_NAME = "phi3:latest"
 
     @staticmethod
     def generate_security_explanation(
@@ -15,18 +15,11 @@ class AIService:
     ):
 
         prompt = f"""
-You are a Cybersecurity Analyst.
-
 Service: {service}
-Risk Level: {risk}
+Risk: {risk}
 Description: {description}
 
-Explain:
-1. Why this service can be risky.
-2. What attackers might do.
-3. How to secure it.
-
-Keep the response professional and beginner friendly.
+Give 3 short security recommendations.
 """
 
         try:
@@ -38,7 +31,7 @@ Keep the response professional and beginner friendly.
                     "prompt": prompt,
                     "stream": False
                 },
-                timeout=120
+                timeout=300
             )
 
             data = response.json()
@@ -50,10 +43,6 @@ Keep the response professional and beginner friendly.
 
         except Exception as error:
 
-            print(
-                f"AI ERROR: {error}"
-            )
+            print(f"AI ERROR: {error}")
 
-            return (
-                "Unable to generate AI explanation."
-            )
+            return "Unable to generate AI explanation."

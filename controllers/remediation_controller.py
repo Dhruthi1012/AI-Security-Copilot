@@ -6,16 +6,16 @@ from services.vulnerability_service import (
     VulnerabilityService
 )
 
-from services.ai_service import (
-    AIService
+from services.remediation_service import (
+    RemediationService
 )
 
 
-def ai_analysis_page():
+def remediation_page():
 
     scans = ScanModel.get_all_scans()
 
-    ai_findings = []
+    remediation_findings = []
 
     if scans:
 
@@ -38,27 +38,27 @@ def ai_analysis_page():
 
         for vuln in vulnerabilities:
 
-            ai_explanation = (
-                AIService
-                .generate_security_explanation(
+            remediation_plan = (
+                RemediationService
+                .generate_remediation_plan(
                     vuln["service"],
-                    vuln["severity"],
+                    vuln["risk"],
                     vuln["description"]
                 )
             )
 
-            ai_findings.append(
+            remediation_findings.append(
                 {
                     "port": vuln["port"],
                     "service": vuln["service"],
-                    "severity": vuln["severity"],
+                    "risk": vuln["risk"],
                     "description": vuln["description"],
-                    "ai_explanation": ai_explanation
+                    "recommendation": vuln["recommendation"],
+                    "remediation_plan": remediation_plan
                 }
             )
 
     return render_template(
-        "ai_analysis.html",
-        findings=ai_findings
+        "remediation.html",
+        findings=remediation_findings
     )
-    

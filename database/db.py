@@ -1,4 +1,5 @@
 import sqlite3
+
 DATABASE_NAME = "security_copilot.db"
 
 

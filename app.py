@@ -1,3 +1,12 @@
+from controllers.report_controller import (
+    report_page,
+    download_report
+)
+
+from controllers.remediation_controller import (
+    remediation_page
+)
+
 from flask import Flask
 from database.db import initialize_database
 
@@ -77,6 +86,20 @@ def home():
 
                 </a>
 
+                <a href="/remediation"
+                    class="list-group-item list-group-item-action">
+
+                     AI Remediation Assistant
+
+                </a>
+
+                <a href="/reports"
+                    class="list-group-item list-group-item-action">
+
+                PDF Security Reports
+
+                </a>
+
             </div>
 
         </div>
@@ -123,6 +146,23 @@ def vulnerabilities():
 def ai_analysis():
 
     return ai_analysis_page()
+
+
+@app.route("/remediation")
+def remediation():
+
+    return remediation_page()
+
+@app.route("/reports")
+def reports():
+
+    return report_page()
+
+
+@app.route("/download-report")
+def download_pdf():
+
+    return download_report()
 
 
 if __name__ == "__main__":

@@ -1,12 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
 
     <title>Vulnerability Dashboard</title>
 
@@ -22,62 +16,47 @@
 
     <h1>Vulnerability Dashboard</h1>
 
-    <hr>
-
-    {% if findings %}
-
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered">
 
         <thead class="table-dark">
 
             <tr>
-
                 <th>Port</th>
                 <th>Service</th>
-                <th>Risk</th>
+                <th>Severity</th>
                 <th>Description</th>
-                <th>Recommendation</th>
-
             </tr>
 
         </thead>
 
         <tbody>
 
-            {% for finding in findings %}
+        {% for finding in findings %}
 
             <tr>
 
-                <td>
-                    {{ finding.port }}
-                </td>
+                <td>{{ finding.port }}</td>
 
-                <td>
-                    {{ finding.service }}
-                </td>
+                <td>{{ finding.service }}</td>
 
                 <td>
 
-                    {% if finding.risk == "Critical" %}
-
+                    {% if finding.severity == "Critical" %}
                         <span class="badge bg-danger">
                             Critical
                         </span>
 
-                    {% elif finding.risk == "High" %}
-
-                        <span class="badge bg-warning text-dark">
+                    {% elif finding.severity == "High" %}
+                        <span class="badge bg-warning">
                             High
                         </span>
 
-                    {% elif finding.risk == "Medium" %}
-
-                        <span class="badge bg-info text-dark">
+                    {% elif finding.severity == "Medium" %}
+                        <span class="badge bg-info">
                             Medium
                         </span>
 
                     {% else %}
-
                         <span class="badge bg-success">
                             Low
                         </span>
@@ -86,35 +65,17 @@
 
                 </td>
 
-                <td>
-                    {{ finding.description }}
-                </td>
-
-                <td>
-                    {{ finding.recommendation }}
-                </td>
+                <td>{{ finding.description }}</td>
 
             </tr>
 
-            {% endfor %}
+        {% endfor %}
 
         </tbody>
 
     </table>
 
-    {% else %}
-
-    <div class="alert alert-warning">
-
-        No vulnerabilities detected.
-        Run a scan first.
-
-    </div>
-
-    {% endif %}
-
 </div>
 
 </body>
-
 </html>
